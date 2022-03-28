@@ -1,0 +1,738 @@
+package projectofinal;
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class projfinal {
+
+	public static void main(String[] args) {
+
+		
+		int creditos=100 , aposta , ganhos , cartas , cartad1 , cartad2 , cartaj1 , cartaj2 , cartaj3;
+		int totalj , totald , maiscarta , nvitorias=0 , nderrotas=0 , totalganhos=0 , totalperdidos=0 ;
+		String sair = " ";
+		String historico = " ";
+		String lang=" ";
+		
+		Scanner scan = new Scanner (System.in);
+		Random random = new Random ();
+		
+		
+		// SELECIONAR LINGUAGEM
+		delay();
+		System.out.println("[PT] Olá! Por favor selecione a linguagem. Escreva ENG ou PT");
+		delay();
+		System.out.println("[ENG] Hi! Please select language. Write ENG or PT");
+		lang=scan.next();
+		
+		
+		// PORTUGUES
+		if (lang.equals("PT"))
+		{
+			cScreen();
+			
+			//INICIANDO
+			welcome(); System.out.print("I");
+			welcome(); System.out.print("N");
+			welcome(); System.out.print("I");
+			welcome(); System.out.print("C");
+			welcome(); System.out.print("I");
+			welcome(); System.out.print("A");
+			welcome(); System.out.print("N");
+			welcome(); System.out.print("D");
+			welcome(); System.out.print("O");
+			delay(); System.out.print(".");
+			delay(); System.out.print(".");
+			delay(); System.out.println(".");
+			
+			//BEM VINDO
+			welcome(); System.out.print("B");
+			welcome(); System.out.print("E");
+			welcome(); System.out.print("M");
+			welcome(); System.out.print(" ");
+			welcome(); System.out.print("V");
+			welcome(); System.out.print("I");
+			welcome(); System.out.print("N");
+			welcome(); System.out.print("D");
+			welcome(); System.out.print("O");
+			welcome(); System.out.print(" ");
+			welcome(); System.out.print("A");
+			welcome(); System.out.print("O");
+			welcome(); System.out.print(" ");
+			delay(); System.out.print("ALMOST ");
+			delay(); System.out.print("BLACK ");
+			delay(); System.out.println("JACK!");
+			delay(); System.out.println("");
+			
+			// REGRAS DO JOGO
+			regras();
+	
+	
+			// JOGO - nao = JOGAR | sair = ACABAR O JOGO
+			while (!sair.equals("sair") && creditos>0) 
+				{
+				
+				//CASO O JOGADOR TENHA CREDITOS O JOGO COMEÇA
+				if(creditos>0)
+				{
+					//APOSTA
+					System.out.println("");
+					System.out.println("Créditos: "+creditos+"€");
+					delay();
+					System.out.println("Qual o valor da sua aposta?");
+					aposta=scan.nextInt();
+				
+					//APOSTA INVALIDA
+					if (aposta <= 0)
+					{
+						System.out.println("");
+						delay();
+						System.out.println("A aposta é invalida, deverá inrodzir um valor igual ou superior a 1€.");
+					}
+					
+					// JOGO
+					else if (aposta>=1 && aposta<=creditos)
+					{
+						creditos=creditos-aposta;
+						
+						cScreen();
+						
+						//1ª CARTA DO DEALER
+						System.out.println("");
+						System.out.println("");
+						System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+						delay();
+						System.out.println("Cartas do dealer:");
+						delay();
+						cartas=random.nextInt(6)+6; //PARA SAIR CARTAS MAIS ALTAS SEMPRE (PARA A CASA TER ALGUMA VANTAGEM)
+						System.out.println("["+cartas+"][?]");
+						cartad1=cartas;
+						
+						//CARTAS DO JOGADOR
+						System.out.println("");
+						delay();
+						System.out.println("Suas cartas:");
+						delay();
+						cartas=random.nextInt(11)+1;
+						System.out.print("["+cartas+"]");
+						cartaj1=cartas;
+						cartas=random.nextInt(11)+1;
+						System.out.println("["+cartas+"]");
+						cartaj2=cartas;
+						System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+						delay();
+						
+						//TOTAL DE PONTOS DO JOGADOR
+						totalj=cartaj1+cartaj2;
+						
+						//CASO OBTENHA 11+11 AO COMEÇAR
+						if (totalj>21)
+						{
+							System.out.println("Você perdeu! com um total de "+totalj+" pontos. Mais sorte para a proxima!");
+							delay();
+							System.out.println("Deseja sair?");
+							System.out.println("sair --> para sair | nao --> para continuar a jogar");
+							sair=scan.next();
+							
+							nderrotas++;
+							totalperdidos=totalperdidos+aposta;
+							
+							cScreen();
+						}
+						
+						if (totalj<=21)
+						{
+							System.out.println("Total de pontos atuais: "+totalj);
+							delay();
+							System.out.println("Deseja mais uma carta? se SIM, digitar 1 . Se NÃO, digitar 2 .");
+							maiscarta=scan.nextInt();
+							delay();
+			
+							// CASO O JOGADOR QUEIRA +1 CARTA
+							if (maiscarta==1)
+							{
+								System.out.println("");
+								System.out.println("");
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								System.out.println("Cartas do dealer:");
+								delay();
+								System.out.println("["+cartad1+"][?]");
+								System.out.println("");
+								delay();
+								System.out.println("Suas cartas:");
+								delay();
+								cartas=random.nextInt(11)+1;
+								System.out.println("["+cartaj1+"]["+cartaj2+"]["+cartas+"]");
+								cartaj3=cartas;
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								
+								totalj=totalj+cartaj3;
+								
+								// CASO O JOGADOR PERCA COM A 3ª CARTA
+								if (totalj>21)
+								{
+									System.out.println("Você perdeu! com um total de "+totalj+" pontos. Mais sorte para a proxima!");
+									delay();
+									System.out.println("Deseja sair?");
+									System.out.println("sair --> para sair | nao --> para continuar a jogar");
+									sair=scan.next();
+									
+									nderrotas++;
+									totalperdidos=totalperdidos+aposta;
+									
+									cScreen();
+								}
+								
+								//CASO O JOGO CONTINUE COM A 3 CARTA
+								if (totalj<=21)
+								{
+									System.out.println("Total de pontos atuais: "+totalj);
+									delay();
+									System.out.println("Clique ENTER para revelar a carta do dealer");
+									
+									enter();
+									
+									System.out.println("");
+									System.out.println("");
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+									cartas=random.nextInt(6)+6; //PARA SAIR CARTAS MAIS ALTAS SEMPRE (PARA A CASA TER ALGUMA VANTAGEM)
+									System.out.println("Cartas do dealer:");
+									delay();
+									System.out.println("["+cartad1+"]["+cartas+"]");
+									System.out.println("");
+									delay();
+									System.out.println("Suas cartas:");
+									delay();
+									System.out.println("["+cartaj1+"]["+cartaj2+"]["+cartaj3+"]");
+									cartad2=cartas;
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+									
+									totald =cartad1+cartad2;
+									
+									System.out.println("Total dos seus pontos: "+totalj+" | Total dos pontos do Dealer: "+totald);
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+									
+									//VITORIA
+									if (totalj>=totald || totald>21)
+									{
+										ganhos= aposta*2;
+										creditos= creditos+ganhos;
+										totalganhos= totalganhos + aposta;
+										
+										System.out.println("");
+										System.out.println("Parabéns! Ganhou um total de: "+ganhos+"€ !");
+										delay();
+										System.out.println("Deseja sair?");
+										System.out.println("sair --> para sair | nao --> para continuar a jogar");
+										sair=scan.next();
+										
+										nvitorias++;
+										
+										cScreen();
+									}
+									
+									//DERROTA
+									else if (totalj<totald)
+									{
+										System.out.println("");
+										delay();
+										System.out.println("Você perdeu! Mais sorte para a próxima!");
+										delay();
+										System.out.println("Deseja sair?");
+										System.out.println("sair --> para sair | nao --> para continuar a jogar");
+										sair=scan.next();
+										
+										nderrotas++;
+										totalperdidos=totalperdidos+aposta;
+										
+										cScreen();
+									}
+								}
+							}	
+							
+							//CASO O JOGADOR NAO QUEIRA +1 CARTA
+							else if (maiscarta==2)
+							{
+								System.out.println("");
+								System.out.println("Clique ENTER para revelar a carta do dealer");
+								
+								enter();
+								
+								System.out.println("");
+								System.out.println("");
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								cartas=random.nextInt(6)+6; //PARA SAIR CARTAS MAIS ALTAS SEMPRE (PARA A CASA TER ALGUMA VANTAGEM)
+								System.out.println("Cartas do dealer:");
+								delay();
+								System.out.println("["+cartad1+"]["+cartas+"]");
+								System.out.println("");
+								delay();
+								System.out.println("Suas cartas:");
+								delay();
+								System.out.println("["+cartaj1+"]["+cartaj2+"]");
+								cartad2=cartas;
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								
+								totald =cartad1+cartad2;
+								
+								System.out.println("Total dos seus pontos: "+totalj+" | Total dos pontos do Dealer: "+totald);
+								delay();
+								
+								//VITORIA
+								if (totalj>=totald || totald>21)
+								{
+									ganhos= aposta*2;
+									creditos= creditos+ganhos;
+									totalganhos= totalganhos + aposta;
+									
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									System.out.println("");
+									delay();
+									System.out.println("Parabéns! Ganhou um total de: "+ganhos+"€ !");
+									delay();
+									System.out.println("Deseja sair?");
+									System.out.println("sair --> para sair | nao --> para continuar a jogar");
+									sair=scan.next();
+									
+									nvitorias++;
+									
+									cScreen();
+								}
+								
+								//DERROTA
+								else if (totalj<totald)
+								{
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+									System.out.println("Você perdeu! Mais sorte para a próxima!");
+									delay();
+									System.out.println("Deseja sair?");
+									System.out.println("sair --> para sair | nao --> para continuar a jogar");
+									sair=scan.next();
+									
+									nderrotas++;
+									totalperdidos=totalperdidos+aposta;
+									
+									cScreen();
+								}
+							}		
+						}
+					}
+				}	
+			}
+			
+			if (creditos == 0)
+			{
+				delay();
+				System.out.println("Acabaram os créditos...");
+			}
+			
+			delay();
+			System.out.println("Até uma próxima! sai daqui com um total de "+creditos+"€ !");
+			delay();
+			System.out.println("Esperamos que tenha gostado, digite <historico> para obter um resumo das suas partidas jogadas!");
+			historico=scan.next();
+			
+			//CASO O JOGADOR QUEIRA O HISTORICO
+			if (historico.equals("historico"))
+			{
+				System.out.println();
+				delay();
+				System.out.println("Total de Jogos Realizados: "+(nderrotas+nvitorias)+";");
+				delay();
+				System.out.println("Total de Vitórias: "+nvitorias+";");
+				delay();
+				System.out.println("Total de Derrotas: "+nderrotas+";");
+				delay();
+				System.out.println("Total de Dinheiro ganho: "+totalganhos+"€;");
+				delay();
+				System.out.println("Total de Dinheiro perdido: "+totalperdidos+"€;");
+				delay();
+				System.out.println("Total: "+(totalganhos-totalperdidos)+"€;");
+			}
+		}
+		
+		// ENGLISH
+		if (lang.equals("ENG"))
+		{
+			cScreen();
+
+			// INICIALIZING
+			welcome(); System.out.print("S");
+			welcome(); System.out.print("T");
+			welcome(); System.out.print("A");
+			welcome(); System.out.print("R");
+			welcome(); System.out.print("T");
+			welcome(); System.out.print("I");
+			welcome(); System.out.print("N");
+			welcome(); System.out.print("G");
+			delay(); System.out.print(".");
+			delay(); System.out.print(".");
+			delay(); System.out.println(".");
+
+			// WELCOME
+			welcome(); System.out.print("W");
+			welcome(); System.out.print("E");
+			welcome(); System.out.print("L");
+			welcome(); System.out.print("C");
+			welcome(); System.out.print("O");
+			welcome(); System.out.print("M");
+			welcome(); System.out.print("E");
+			welcome(); System.out.print(" ");
+			welcome(); System.out.print("T");
+			welcome(); System.out.print("O");
+			welcome(); System.out.print(" ");
+			delay(); System.out.print("ALMOST ");
+			delay(); System.out.print("BLACK ");
+			delay(); System.out.println("JACK!");
+			delay();System.out.println("");
+
+			// GAME RULES
+			rules();
+
+			// GAME- no = PLAY | leave = END THE GAME
+			while (!sair.equals("leave") && creditos > 0) {
+
+				// IF THE PLAYER HAS CREDITS THE GAME BEGINS
+				if (creditos > 0) {
+					// BET
+					System.out.println("");
+					System.out.println("Credits: " + creditos + "€");
+					delay();
+					System.out.println("What is the value of your bet?");
+					aposta = scan.nextInt();
+
+					// INVALID BET
+					if (aposta <= 0) {
+						System.out.println("");
+						System.out.println("The bet is invalid, you must enter an amount equal to or greater than €1.");
+					}
+
+					// GAME
+					else if (aposta >= 1 && aposta <= creditos) {
+						creditos = creditos - aposta;
+
+						cScreen();
+
+						// 1ª DEALER CARD
+						System.out.println("");
+						System.out.println("");
+						System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+						delay();
+						System.out.println("Dealer cards:");
+						delay();
+						cartas = random.nextInt(6) + 6; // TO GET HIGHEST CARDS ALWAYS (FOR THE HOUSE TO HAVE SOME
+														// ADVANTAGE)
+						System.out.println("[" + cartas + "][?]");
+						cartad1 = cartas;
+
+						// PLAYER CARDS
+						delay();
+						System.out.println("");
+						System.out.println("Your cards:");
+						delay();
+						cartas = random.nextInt(11) + 1;
+						System.out.print("[" + cartas + "]");
+						cartaj1 = cartas;
+						cartas = random.nextInt(11) + 1;
+						System.out.println("[" + cartas + "]");
+						cartaj2 = cartas;
+						System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+						delay();
+
+						// PLAYER TOTAL POINTS
+						totalj = cartaj1 + cartaj2;
+
+						// IF HE GETS 11+11 AT BEGINING
+						if (totalj > 21) {
+							System.out
+									.println("You lost! with a total of " + totalj + " points. Better luck next time!");
+							delay();
+							System.out.println("Do you want to leave?");
+							System.out.println("leave --> to leave | no --> to keep playing");
+							sair = scan.next();
+
+							nderrotas++;
+							totalperdidos = totalperdidos + aposta;
+							
+							cScreen();
+						}
+
+						if (totalj <= 21) {
+							System.out.println("Total points: " + totalj);
+							delay();
+							System.out.println("Do you want one more card? if YES, enter 1 . If NO, enter 2 .");
+							maiscarta = scan.nextInt();
+
+							// IF THE PLAYER WANTS +1 CARD
+							if (maiscarta == 1) {
+								System.out.println("");
+								System.out.println("");
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								System.out.println("Dealer cards:");
+								delay();
+								System.out.println("[" + cartad1 + "][?]");
+								System.out.println("");
+								delay();
+								System.out.println("Your cards:");
+								delay();
+								cartas = random.nextInt(11) + 1;
+								System.out.println("[" + cartaj1 + "][" + cartaj2 + "][" + cartas + "]");
+								cartaj3 = cartas;
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+
+								totalj = totalj + cartaj3;
+
+								// IF THE PLAYER LOST WITH 3º CARD
+								if (totalj > 21) {
+									System.out.println(
+											"You lost! with a total of " + totalj + " points. Better luck next time!");
+									delay();
+									System.out.println("Do you want to leave?");
+									System.out.println("leave --> to leave | no --> to keep playing");
+									sair = scan.next();
+
+									nderrotas++;
+									totalperdidos = totalperdidos + aposta;
+									
+									cScreen();
+								}
+
+								// IF THE PLAYER CONTINUES WITH 3º CARD
+								if (totalj <= 21) {
+									System.out.println("Total points: " + totalj);
+									delay();
+									System.out.println("Click ENTER to reveal the dealer's card.");
+
+									enter();
+
+									System.out.println("");
+									System.out.println("");
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+									cartas = random.nextInt(6) + 6; // TO GET HIGHEST CARDS ALWAYS (FOR THE HOUSE TO
+																	// HAVE SOME ADVANTAGE)
+									System.out.println("Dealer cards:");
+									delay();
+									System.out.println("[" + cartad1 + "][" + cartas + "]");
+									System.out.println("");
+									delay();
+									System.out.println("Your cards:");
+									delay();
+									System.out.println("[" + cartaj1 + "][" + cartaj2 + "][" + cartaj3 + "]");
+									cartad2 = cartas;
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+
+									totald = cartad1 + cartad2;
+
+									System.out.println("Total points: " + totalj + " | Dealer total points: " + totald);
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									delay();
+
+									// VICTORY
+									if (totalj >= totald || totald > 21) {
+										ganhos = aposta * 2;
+										creditos = creditos + ganhos;
+										totalganhos= totalganhos + aposta;
+
+										System.out.println("");
+										System.out.println("Congratulations! You won a total of: " + ganhos + "€ !");
+										delay();
+										System.out.println("Do you want to leave?");
+										System.out.println("leave --> to leave | no --> to keep playing");
+										sair = scan.next();
+
+										nvitorias++;
+										
+										cScreen();
+									}
+
+									// LOST
+									else if (totalj < totald) {
+										System.out.println("");
+										System.out.println("You lost! Better luck next time!");
+										delay();
+										System.out.println("Do you want to leave?");
+										System.out.println("leave --> to leave | no --> to keep playing");
+										sair = scan.next();
+
+										nderrotas++;
+										totalperdidos = totalperdidos + aposta;
+										
+										cScreen();
+									}
+								}
+							}
+
+							// IF THE PLAYER DOES NOT WANT +1 CARD
+							else if (maiscarta == 2) {
+								delay();
+								System.out.println("");
+								System.out.println("Click ENTER to reveal the dealer's card.");
+
+								enter();
+
+								System.out.println("");
+								System.out.println("");
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+								cartas = random.nextInt(6) + 6; // TO GET HIGHEST CARDS ALWAYS (FOR THE HOUSE TO HAVE SOME ADVANTAGE)
+								System.out.println("Dealer cards:");
+								delay();
+								System.out.println("[" + cartad1 + "][" + cartas + "]");
+								System.out.println("");
+								delay();
+								System.out.println("Your Cards:");
+								delay();
+								System.out.println("[" + cartaj1 + "][" + cartaj2 + "]");
+								cartad2 = cartas;
+								System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+								delay();
+
+								totald = cartad1 + cartad2;
+
+								System.out.println("Total points: " + totalj + " | Dealer total points: " + totald);
+								delay();
+
+								// VICTORY
+								if (totalj >= totald || totald > 21) {
+									ganhos = aposta * 2;
+									creditos = creditos + ganhos;
+									totalganhos= totalganhos + aposta;
+
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									System.out.println("");
+									delay();
+									System.out.println("Congratulations! You won a total of: " + ganhos + "€ !");
+									delay();
+									System.out.println("Do you want to leave?");
+									System.out.println("leave --> to leave | no --> to keep playing");
+									sair = scan.next();
+
+									nvitorias++;
+									
+									cScreen();
+								}
+
+								// LOST
+								else if (totalj < totald) {
+									System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.");
+									System.out.println("");
+									delay();
+									System.out.println("You lost! Better luck next time!");
+									delay();
+									System.out.println("Do you want to leave?");
+									System.out.println("leave --> to leave | no --> to keep playing");
+									sair = scan.next();
+
+									nderrotas++;
+									totalperdidos = totalperdidos + aposta;
+									
+									cScreen();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (creditos == 0) {
+				delay();
+				System.out.println("The credits are over...");
+			}
+
+			delay();
+			System.out.println("See you next time! You leave here with a total of " + creditos + "€ !");
+			delay();
+			System.out.println("We hope you enjoyed it, type <historic> to get a summary of your games played!");
+			historico = scan.next();
+
+			// IF THE PLAYER WANTS HISTORIC
+			if (historico.equals("historic")) {
+				System.out.println();
+				delay();
+				System.out.println("Total Games Played: " + (nderrotas + nvitorias) + ";");
+				delay();
+				System.out.println("Total Wins: " + nvitorias + ";");
+				delay();
+				System.out.println("Total losses: " + nderrotas + ";");
+				delay();
+				System.out.println("Total Money Earned: " + totalganhos + "€;");
+				delay();
+				System.out.println("Total Money Lost: " + totalperdidos + "€;");
+				delay();
+				System.out.println("Total: " + (totalganhos - totalperdidos) + "€;");
+			}
+		}
+		
+		scan.close();
+		
+	}
+	
+	//CLEAR SCREEN | LIMPAR ECRA
+	static void cScreen() {
+		for (int i = 0; i < 60; ++i) 
+		{
+            System.out.println();
+        }
+	}
+	
+	//ENTER
+	static void enter() {
+		try 
+		{
+			System.in.read();
+		} catch (Exception e) {
+		}
+	}
+	
+	//SLOW DELAY | DELAY LENTO
+	static void delay() {
+		try {
+            Thread.sleep(700);
+        } catch (Exception e) {
+            System.out.println("[PT] Erro no timer | [ENG] Timer error");
+        }
+	}
+	
+	//FAST DELAY | DELAY RAPIDO
+	static void welcome() {
+		try {
+            Thread.sleep(250);
+        } catch (Exception e) {
+            System.out.println("Erro no timer");
+        }
+	}
+	
+	//RULES PT | REGRAS PT
+	static void regras() {
+		delay(); System.out.println("Regras gerais do jogo:");
+		delay(); System.out.println("1- O Dealer terá 1 carta aberta de inicio e terá outra que só quando o Jogador terminar a jogada será revelada;");
+		delay(); System.out.println("2- O Jogador recebe as suas 2 cartas, caso não esteja satisfeito poderá pedir +1 carta;");
+		delay(); System.out.println("3- Caso o jogador ultrapase o valor de 21, automáticamente terá uma derrota e perderá o valor apostado;");
+		delay(); System.out.println("4- Quando o jogador estiver satisfeito, dará por terminada a jogada, caso o seu valor seja maior que o do Dealer, ganhará o x2 do valor apostado;");
+		delay(); System.out.println("5- O Jogador podrá abandonar o jogo quando quiser no fim de cada partida.");	
+		delay();
+	}
+	
+	//RULES ENG | REGRAS ENG
+	static void rules() {
+		delay(); System.out.println("General game rules:");
+		delay(); System.out.println("1- The Dealer will have 1 open card at the beginning and will have another that only when the Player finishes the turn will be revealed;");
+		delay(); System.out.println("2- The Player receives his 2 cards, if he is not satisfied he can ask for +1 card;");
+		delay(); System.out.println("3- If the player exceeds the value of 21, he will automatically have a defeat and lose the amount bet;");
+		delay(); System.out.println("4- When the player is satisfied, he will end the play, if its value is greater than the Dealer's, he will win x2 of the bet amount;");
+		delay(); System.out.println("5- The Player can leave the game whenever he wants at the end of each game.");
+		delay();
+	}
+}
